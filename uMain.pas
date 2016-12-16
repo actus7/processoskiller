@@ -217,8 +217,36 @@ begin
   TCarregaProcessos.Processos;
 end;
 
+function VersaoExe(const Filename: String): String;
+type
+  TVersionInfo = packed record
+    Dummy: array [0 .. 7] of Byte;
+    V2, V1, V4, V3: Word;
+  end;
+var
+  Zero, Size: Cardinal;
+  Data: Pointer;
+  VersionInfo: ^TVersionInfo;
+begin
+  Size := GetFileVersionInfoSize(Pointer(Filename), Zero);
+  if Size = 0 then
+    Result := ''
+  else
+  begin
+    GetMem(Data, Size);
+    try
+      GetFileVersionInfo(Pointer(Filename), 0, Size, Data);
+      VerQueryValue(Data, '\', Pointer(VersionInfo), Size);
+      Result := Format('%d.%d.%d.%d', [VersionInfo.V1, VersionInfo.V2, VersionInfo.V3, VersionInfo.V4]);
+    finally
+      FreeMem(Data);
+    end;
+  end;
+end;
+
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
+  Caption := Caption + ' [' + VersaoExe(ExtractFilePath(ParamStr(0)) + ExtractFileName(ParamStr(0))) + ']';
   TCarregaProcessos.Processos;
 end;
 

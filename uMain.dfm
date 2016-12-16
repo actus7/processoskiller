@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'Process Killer'
+  Caption = 'Processos Killer'
   ClientHeight = 477
   ClientWidth = 751
   Color = clBtnFace
@@ -56,6 +56,18 @@ object frmMain: TfrmMain
     Height = 398
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
     TabOrder = 3
+    ColWidths = (
+      64
+      64
+      64
+      64
+      64)
+    RowHeights = (
+      24
+      24
+      24
+      24
+      24)
   end
   object srchProcesso: TSearchBox
     Left = 248
@@ -74,8 +86,5 @@ object frmMain: TfrmMain
       item
         Width = 300
       end>
-    ExplicitLeft = 40
-    ExplicitTop = 456
-    ExplicitWidth = 0
   end
 end
